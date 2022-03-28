@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoForeignExchange">
         <activity
-            android:name=".ShowCurrencySymbols"
+            android:name=".ShowCurrencyInformations"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

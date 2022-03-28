@@ -24,7 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 //Eddie
-public class ShowCurrencySymbols extends AppCompatActivity {
+public class ShowCurrencyInformations extends AppCompatActivity {
     Spinner fromCurrencySpinner, toCurrencySpinner;
     EditText fromCurrencyNumber, toCurrencyNumber;
     public String currentFrom, currentTo;
