@@ -2,6 +2,7 @@ package com.example.cryptoforeignexchange;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -68,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
         crytproForeignExchangeSearchTask.setToCurrency(enteredToCurreny.getText().toString());
         //Start api connection
         crytproForeignExchangeSearchTask.execute();
+    }
+
+    public void ShowCurrency(View view) {
+        Intent intent = new Intent(MainActivity.this,ShowCurrencySymbols.class);
+        startActivity(intent);
     }
 
 
