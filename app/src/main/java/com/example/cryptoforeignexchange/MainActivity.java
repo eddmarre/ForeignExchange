@@ -63,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ExchangeCurrency(View view) {
-                CrytproForeignExchangeSearchTask crytproForeignExchangeSearchTask=new CrytproForeignExchangeSearchTask();
-        //Set from company & to company
-        crytproForeignExchangeSearchTask.setFromCurrency(enteredFromCurrency.getText().toString());
-        crytproForeignExchangeSearchTask.setToCurrency(enteredToCurreny.getText().toString());
-        //Start api connection
-        crytproForeignExchangeSearchTask.execute();
+//                CrytproForeignExchangeSearchTask crytproForeignExchangeSearchTask=new CrytproForeignExchangeSearchTask();
+//        //Set from company & to company
+//        crytproForeignExchangeSearchTask.setFromCurrency(enteredFromCurrency.getText().toString());
+//        crytproForeignExchangeSearchTask.setToCurrency(enteredToCurreny.getText().toString());
+//        //Start api connection
+//        crytproForeignExchangeSearchTask.execute();
     }
 
     public void ShowCurrency(View view) {
@@ -77,122 +77,122 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public class CrytproForeignExchangeSearchTask extends AsyncTask<String, String, String> {
-        String result;
-        String SYMBOL;
-
-        String fromCurrency = "";
-        String toCurrency = "";
-        //MUST INSERT YOUR OWN KEY TO USE
-        //GET KEY FROM https://www.alphavantage.co/support/#api-key
-        String APIKey = "50BZM4QNXYEYF7K3";
-
-        public void setFromCurrency(String fromCurrency) {
-            this.fromCurrency = fromCurrency;
-        }
-
-        public void setToCurrency(String toCurrency) {
-            this.toCurrency = toCurrency;
-        }
-
-        //Start connecting to internet and retrieve data
-        @Override
-        protected String doInBackground(String... strings) {
-            StringBuilder sb = new StringBuilder();
-            URL url;
-            HttpURLConnection urlConnection = null;
-            try {
-                //String uri = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=" + APIKey;
-                  String uri="https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency="+fromCurrency+"&to_currency="+toCurrency+"&apikey="+APIKey;
-                //String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + SYMBOL + "&apikey=" + APIKey;
-                url = new URL(uri);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream inputStream = urlConnection.getInputStream();
-                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-
-                InputStreamReader inputStreamReader = new InputStreamReader(bufferedInputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                String inputLine = bufferedReader.readLine();
-                while (inputLine != null) {
-                    sb.append(inputLine);
-                    inputLine = bufferedReader.readLine();
-                }
-                result = sb.toString();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                urlConnection.disconnect();
-            }
-            //nonsense return because of String return type
-            return sb.toString();
-        }
-
-        //after internet connection is established
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            try {
-                JSONObject root = new JSONObject(result);
-                JSONObject foriengExchangeRate = root.getJSONObject("Realtime Currency Exchange Rate");
-
-                String fromCurrencyCode = foriengExchangeRate.getString("1. From_Currency Code");
-                String fromCurrencyName = foriengExchangeRate.getString("2. From_Currency Name");
-                String toCurrencyCode = foriengExchangeRate.getString("3. To_Currency Code");
-                String toCurrecnyName = foriengExchangeRate.getString("4. To_Currency Name");
-                String exchangeRate = foriengExchangeRate.getString("5. Exchange Rate");
-                String lastRefreshed = foriengExchangeRate.getString("6. Last Refreshed");
-                String timeZone = foriengExchangeRate.getString("7. Time Zone");
-                String bidPrice = foriengExchangeRate.getString("8. Bid Price");
-                String askPrice = foriengExchangeRate.getString("9. Ask Price");
-                //TODO assign variavbles to text fields
-
-                _fromCurrencySymbol.setText(fromCurrencyCode);
-                _fromCurrencyName.setText(fromCurrencyName);
-                _toCurrencySymbol.setText(toCurrencyCode);
-                _toCurrencyName.setText(toCurrecnyName);
-                _exchangeRate.setText(exchangeRate);
-                _lastRefreshed.setText(lastRefreshed);
-                _timeZone.setText(timeZone);
-                _bidPrice.setText(bidPrice);
-                _askPrice.setText(askPrice);
-
-//                JSONObject metaData = root.getJSONObject("Meta Data");
-//                JSONObject timeSeriesDaily = root.getJSONObject("Time Series (Daily)");
+//    public class CrytproForeignExchangeSearchTask extends AsyncTask<String, String, String> {
+//        String result;
+//        String SYMBOL;
 //
-//                String companySymbol = metaData.getString("2. Symbol");
-//                String lastRefreshed = metaData.getString("3. Last Refreshed");
-//                String timeZone = metaData.getString("5. Time Zone");
+//        String fromCurrency = "";
+//        String toCurrency = "";
+//        //MUST INSERT YOUR OWN KEY TO USE
+//        //GET KEY FROM https://www.alphavantage.co/support/#api-key
+//        String APIKey = "50BZM4QNXYEYF7K3";
 //
-//                JSONArray dates = timeSeriesDaily.names();
+//        public void setFromCurrency(String fromCurrency) {
+//            this.fromCurrency = fromCurrency;
+//        }
 //
-//                //put all data into a list
-//                ArrayList<StockData> dailyStock = new ArrayList<>();
+//        public void setToCurrency(String toCurrency) {
+//            this.toCurrency = toCurrency;
+//        }
 //
-//                for (int i = 0; i < dates.length(); i++) {
-//                    String stockDate = dates.getString(i);
-//                    String openValue = timeSeriesDaily.getJSONObject(stockDate).getString("1. open");
-//                    String highValue = timeSeriesDaily.getJSONObject(stockDate).getString("2. high");
-//                    String lowValue = timeSeriesDaily.getJSONObject(stockDate).getString("3. low");
-//                    String closeValue = timeSeriesDaily.getJSONObject(stockDate).getString("4. close");
-//                    String volumeValue = timeSeriesDaily.getJSONObject(stockDate).getString("5. volume");
+//        //Start connecting to internet and retrieve data
+//        @Override
+//        protected String doInBackground(String... strings) {
+//            StringBuilder sb = new StringBuilder();
+//            URL url;
+//            HttpURLConnection urlConnection = null;
+//            try {
+//                //String uri = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=" + APIKey;
+//                  String uri="https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency="+fromCurrency+"&to_currency="+toCurrency+"&apikey="+APIKey;
+//                //String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + SYMBOL + "&apikey=" + APIKey;
+//                url = new URL(uri);
+//                urlConnection = (HttpURLConnection) url.openConnection();
+//                InputStream inputStream = urlConnection.getInputStream();
+//                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
 //
-//                    float iOpenValue = Float.parseFloat(openValue);
-//                    float iHighValue = Float.parseFloat(highValue);
-//                    float iLowValue = Float.parseFloat(lowValue);
-//                    float iCloseValue = Float.parseFloat(closeValue);
-//                    int iVolumeValue = Integer.parseInt(volumeValue);
+//                InputStreamReader inputStreamReader = new InputStreamReader(bufferedInputStream);
+//                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 //
-//                    //create a daily stock
-//                    dailyStock.add(new StockData(stockDate, iOpenValue, iHighValue, iLowValue, iCloseValue, iVolumeValue));
+//                String inputLine = bufferedReader.readLine();
+//                while (inputLine != null) {
+//                    sb.append(inputLine);
+//                    inputLine = bufferedReader.readLine();
 //                }
-                //create company's information from data obtained
-                // Company currentCompany = new Company(SYMBOL, dailyStock);
-                //populate the chart with the company's data
-                // setCandleStickChart(currentCompany);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//                result = sb.toString();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            } finally {
+//                urlConnection.disconnect();
+//            }
+//            //nonsense return because of String return type
+//            return sb.toString();
+//        }
+//
+//        //after internet connection is established
+//        @Override
+//        protected void onPostExecute(String s) {
+//            super.onPostExecute(s);
+//            try {
+//                JSONObject root = new JSONObject(result);
+//                JSONObject foriengExchangeRate = root.getJSONObject("Realtime Currency Exchange Rate");
+//
+//                String fromCurrencyCode = foriengExchangeRate.getString("1. From_Currency Code");
+//                String fromCurrencyName = foriengExchangeRate.getString("2. From_Currency Name");
+//                String toCurrencyCode = foriengExchangeRate.getString("3. To_Currency Code");
+//                String toCurrecnyName = foriengExchangeRate.getString("4. To_Currency Name");
+//                String exchangeRate = foriengExchangeRate.getString("5. Exchange Rate");
+//                String lastRefreshed = foriengExchangeRate.getString("6. Last Refreshed");
+//                String timeZone = foriengExchangeRate.getString("7. Time Zone");
+//                String bidPrice = foriengExchangeRate.getString("8. Bid Price");
+//                String askPrice = foriengExchangeRate.getString("9. Ask Price");
+//
+//                //_fromCurrencySymbol.setText("dsfsadfsdfsafd");
+//                _fromCurrencySymbol.setText(fromCurrencyCode);
+//                _fromCurrencyName.setText(fromCurrencyName);
+//                _toCurrencySymbol.setText(toCurrencyCode);
+//                _toCurrencyName.setText(toCurrecnyName);
+//                _exchangeRate.setText(exchangeRate);
+//                _lastRefreshed.setText(lastRefreshed);
+//                _timeZone.setText(timeZone);
+//                _bidPrice.setText(bidPrice);
+//                _askPrice.setText(askPrice);
+//
+////                JSONObject metaData = root.getJSONObject("Meta Data");
+////                JSONObject timeSeriesDaily = root.getJSONObject("Time Series (Daily)");
+////
+////                String companySymbol = metaData.getString("2. Symbol");
+////                String lastRefreshed = metaData.getString("3. Last Refreshed");
+////                String timeZone = metaData.getString("5. Time Zone");
+////
+////                JSONArray dates = timeSeriesDaily.names();
+////
+////                //put all data into a list
+////                ArrayList<StockData> dailyStock = new ArrayList<>();
+////
+////                for (int i = 0; i < dates.length(); i++) {
+////                    String stockDate = dates.getString(i);
+////                    String openValue = timeSeriesDaily.getJSONObject(stockDate).getString("1. open");
+////                    String highValue = timeSeriesDaily.getJSONObject(stockDate).getString("2. high");
+////                    String lowValue = timeSeriesDaily.getJSONObject(stockDate).getString("3. low");
+////                    String closeValue = timeSeriesDaily.getJSONObject(stockDate).getString("4. close");
+////                    String volumeValue = timeSeriesDaily.getJSONObject(stockDate).getString("5. volume");
+////
+////                    float iOpenValue = Float.parseFloat(openValue);
+////                    float iHighValue = Float.parseFloat(highValue);
+////                    float iLowValue = Float.parseFloat(lowValue);
+////                    float iCloseValue = Float.parseFloat(closeValue);
+////                    int iVolumeValue = Integer.parseInt(volumeValue);
+////
+////                    //create a daily stock
+////                    dailyStock.add(new StockData(stockDate, iOpenValue, iHighValue, iLowValue, iCloseValue, iVolumeValue));
+////                }
+//                //create company's information from data obtained
+//                // Company currentCompany = new Company(SYMBOL, dailyStock);
+//                //populate the chart with the company's data
+//                // setCandleStickChart(currentCompany);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }

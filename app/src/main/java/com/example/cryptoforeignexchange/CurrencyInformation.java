@@ -1,11 +1,11 @@
 package com.example.cryptoforeignexchange;
-
-public class CurrencySymbol {
+//Eddie
+public class CurrencyInformation {
     private String code;
     private String symbol;
     private String currencyName;
 
-    public CurrencySymbol(String code,String symbol,String name)
+    public CurrencyInformation(String code, String symbol, String name)
     {
         this.code =code;
         this.symbol=symbol;
@@ -29,4 +29,5 @@ public class CurrencySymbol {
     {
         return "Name: "+currencyName +"\t\tcode: "+code+"\t\tsymbol: "+symbol+"\n";
     }
+
 }
